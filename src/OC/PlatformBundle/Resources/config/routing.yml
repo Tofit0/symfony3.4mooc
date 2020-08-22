@@ -3,13 +3,38 @@ oc_platform_homepage:
     defaults: { _controller: OCPlatformBundle:Default:index }
 
 oc_advert_index:
-    path:       /advert
-    defaults: { _controller: OCPlatformBundle:Advert:index }
+    path:       /advert/{page}
+    defaults: { _controller: OCPlatformBundle:Advert:index, page:1  }
+    requirements:
+        page:  '\d+'
+
+#oc_advert_slug:
+#    path:       /advert/view/{year}/{slug}.{_format}
+#    defaults: { _controller: OCPlatformBundle:Advert:viewSlug, slug:toto }
+#    requirements:
+#        year:  '\d+'
+#        _format: html|xml
 
 oc_advert_view:
     path:       /advert/view/{id}
     defaults: { _controller: OCPlatformBundle:Advert:view }
+    requirements:
+        id:  '\d+'
 
 oc_advert_add:
-    path:       /advert/add
+    path:       /advert/add/{id}
     defaults: { _controller: OCPlatformBundle:Advert:add }
+    requirements:
+        id:  '\d+'
+
+oc_advert_del:
+    path:       /advert/del/{id}
+    defaults: { _controller: OCPlatformBundle:Advert:del }
+    requirements:
+        id:  '\d+'
+
+oc_advert_edit:
+    path:       /advert/edit/{id}
+    defaults: { _controller: OCPlatformBundle:Advert:edit }
+    requirements:
+        id:  '\d+'
