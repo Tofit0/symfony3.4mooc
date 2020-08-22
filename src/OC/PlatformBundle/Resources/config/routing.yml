@@ -1,3 +1,15 @@
 oc_platform_homepage:
     path:     /
     defaults: { _controller: OCPlatformBundle:Default:index }
+
+#oc_advert_index:
+#    path:       /advert
+#    controller: { _controller: OCPlatformBundle:Advert:index }
+
+oc_advert_view:
+    path:       /advert/view/{id}
+    controller: { _controller: OCPlatformBundle:Advert:view }
+
+oc_advert_add:
+    path:       /advert/add
+    controller: { _controller: OCPlatformBundle:Advert:add }
