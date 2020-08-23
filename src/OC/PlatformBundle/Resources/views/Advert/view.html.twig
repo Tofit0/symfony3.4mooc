@@ -1,12 +1,33 @@
-{# templates/Advert/view.html.twig #}
+{# src/OC/PlatformBundle/Resources/view/Advert/view.html.twig #}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Affichage de l'annonce {{ id }}</title>
-</head>
-<body>
-<h1>Hello Annonce n°{{ id }} !</h1>
-<p>Tag éventuel : {{ id }}</p>
-</body>
-</html>
+{% extends "@OCPlatform/layout.html.twig" %}
+
+{% block title %}
+    Lecture d'une annonce - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+    <h2>{{ advert.title }}</h2>
+    <i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
+
+    <div class="well">
+        {{ advert.content }}
+    </div>
+
+    <p>
+        <a href="{{ path('oc_platform_homepage') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la liste
+        </a>
+        <a href="{{ path('oc_advert_edit', {'id': advert.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-edit"></i>
+            Modifier l'annonce
+        </a>
+        <a href="{{ path('oc_advert_del', {'id': advert.id}) }}" class="btn btn-danger">
+            <i class="glyphicon glyphicon-trash"></i>
+            Supprimer l'annonce
+        </a>
+    </p>
+
+{% endblock %}

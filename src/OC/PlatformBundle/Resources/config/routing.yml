@@ -22,10 +22,8 @@ oc_advert_view:
         id:  '\d+'
 
 oc_advert_add:
-    path:       /advert/add/{id}
+    path:       /advert/add/
     defaults: { _controller: OCPlatformBundle:Advert:add }
-    requirements:
-        id:  '\d+'
 
 oc_advert_del:
     path:       /advert/del/{id}

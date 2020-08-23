@@ -1,0 +1,26 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/add.html.twig #}
+
+{% extends "@OCPlatform/layout.html.twig" %}
+
+{% block title %}
+    Créer une annonce - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+    <h2>Créer une annonce</h2>
+
+    {{ include("@OCPlatform/Advert/_form.html.twig") }}
+
+    <p>
+        Vous créez une nouvelle annonce.
+    </p>
+
+    <p>
+        <a href="{{ path('oc_advert_view', {'id': advert.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Valider la création
+        </a>
+    </p>
+
+{% endblock %}
