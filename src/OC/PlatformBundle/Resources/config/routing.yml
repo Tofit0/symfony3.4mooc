@@ -1,6 +1,6 @@
-oc_platform_homepage:
-    path:     /
-    defaults: { _controller: OCPlatformBundle:Default:index }
+#oc_platform_homepage:
+#    path:     /
+#    defaults: { _controller: OCPlatformBundle:Default:index }
 
 oc_advert_index:
     path:       /advert/{page}

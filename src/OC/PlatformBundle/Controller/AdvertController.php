@@ -95,8 +95,11 @@ class AdvertController extends AbstractController
         // Ici, on récupérera l'annonce correspondant à $id
 
         // Ici, on gérera la suppression de l'annonce en question
+        $this->addFlash('info', 'Merci votre annonce a bien été supprimée');
 
-        return $this->render('@OCPlatform/Advert/delete.html.twig');
+        // Puis on redirige vers la page de visualisation de cette annonce
+        return $this->redirectToRoute('oc_core_homepage');
+        //return $this->render('@OCPlatform/Advert/delete.html.twig');
 
     }
 

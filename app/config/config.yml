@@ -37,6 +37,7 @@ twig:
     strict_variables: '%kernel.debug%'
     paths:
         '%kernel.project_dir%/src/OC/PlatformBundle/': OCPlatformBundle
+#        '%kernel.project_dir%/src/OC/CoreBundle/': OCCoreBundle
 
 # Doctrine Configuration
 doctrine:
