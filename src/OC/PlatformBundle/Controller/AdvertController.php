@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request; // Nouveau use
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+use OC\PlatformBundle\Entity\Advert;
 //use Twig\Environment;
 
 class AdvertController extends AbstractController
@@ -17,6 +19,11 @@ class AdvertController extends AbstractController
         if ($page < 1) {
             throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
+
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
+        $adverts = $em->getRepository('OCPlatformbundle:Advert');
+
 
         // Notre liste d'annonce en dur
         $listAdverts = array(
@@ -51,14 +58,14 @@ class AdvertController extends AbstractController
      */
     public function viewAction($id)
     {
+        $repo = $this->getDoctrine()->getManager()->getRepository('OCPlatformBundle:Advert');
+        $advert = $repo->find($id);
 
-        $advert = array(
-            'title'   => 'Recherche développpeur Symfony2',
-            'id'      => $id,
-            'author'  => 'Alexandre',
-            'content' => 'Nous recherchons un développeur Symfony2 débutant sur Lyon. Blabla…',
-            'date'    => new \Datetime()
-        );
+        // $advert est donc une instance de OC\PlatformBundle\Entity\Advert
+        // ou null si l'id $id  n'existe pas, d'où ce if :
+        if (null === $advert) {
+            throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
+        }
 
         return $this->render('@OCPlatform/Advert/view.html.twig', array(
             'advert' => $advert
@@ -73,20 +80,37 @@ class AdvertController extends AbstractController
 
     public function addAction(Request $request)
     {
+
+        $advert = new Advert();
+        $advert->setTitle('Recherche dev Symfony');
+        $advert->setAuthor('moi');
+        $advert->setContent('En remote pour plein de thune et une duree indeterminee');
+
+
+        $em = $this->getDoctrine()->getManager();
+
+        //on sauvegarde
+        $em->persist($advert);
+
+        //on flush
+        $em->flush();
+
         // La gestion d'un formulaire est particulière, mais l'idée est la suivante :
 
         // Si la requête est en POST, c'est que le visiteur a soumis le formulaire
         if ($request->isMethod('POST')) {
             // Ici, on s'occupera de la création et de la gestion du formulaire
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
 
-            $this->addFlash('notice', 'Annonce bien enregistrée.');
+            //$this->addFlash('notice', 'Annonce bien enregistrée.');
 
             // Puis on redirige vers la page de visualisation de cettte annonce
-            return $this->redirectToRoute('oc_advert_view', ['id' => 5]);
+            return $this->redirectToRoute('oc_advert_view', array('id' => $advert->getId()));
         }
 
+
         // Si on n'est pas en POST, alors on affiche le formulaire
-        return $this->render('@OCPlatform/Advert/add.html.twig');
+        return $this->render('@OCPlatform/Advert/add.html.twig', array('advert' => $advert));
     }
 
     public function delAction($id)

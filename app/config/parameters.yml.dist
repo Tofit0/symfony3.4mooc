@@ -17,3 +17,17 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+
+
+
+parameters:
+    database_host: 192.168.1.190
+    database_port: null
+    database_name: symfo2
+    database_user: root
+    database_password: pwdroot
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: 7f2193ae76d28c512c8fb910c9b0cff4e087965d
