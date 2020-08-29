@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {# src/OC/PlatformBundle/Resources/views/Advert/add.html.twig #}
 
 {% extends "@OCPlatform/layout.html.twig" %}
@@ -21,6 +22,21 @@
             <i class="glyphicon glyphicon-chevron-left"></i>
             Valider la création
         </a>
+=======
+{# templates/Advert/add.html.twig #}
+
+{% extends "layout.html.twig" %}
+
+{% block body %}
+
+    <h2>Ajouter une annonce</h2>
+
+    {{ include("Advert/_form.html.twig") }}
+
+    <p>
+        Attention : cette annonce sera ajoutée directement
+        sur la page d'accueil après validation du formulaire.
+>>>>>>> e0eae91b8284d6e513af3c6747b0d6fb94959652
     </p>
 
 {% endblock %}
