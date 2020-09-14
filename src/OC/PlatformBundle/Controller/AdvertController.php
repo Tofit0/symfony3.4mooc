@@ -279,18 +279,26 @@ class AdvertController extends Controller
 
     public function menuAction($limit)
     {
+       // $cat = array('Développement web', 'Graphisme');
+        //$repoAdv = $this->getDoctrine()->getManager()->getRepository('OCPlatformBundle:Advert');
+        //$listApplications = $repoAdv->getAdvertWithCategories($cat);
+
         // On fixe en dur une liste ici, bien entendu par la suite
         // on la récupérera depuis la BDD !
-        $listAdverts = array(
+        $repoApp = $this->getDoctrine()->getManager()->getRepository('OCPlatformBundle:Application');
+
+        $listApplications = $repoApp->getApplicationsWithAdvert($limit);
+
+        /*$listAdverts = array(
             array('id' => 2, 'title' => 'Recherche développeur Symfony'),
             array('id' => 5, 'title' => 'Mission de webmaster'),
             array('id' => 9, 'title' => 'Offre de stage webdesigner')
-        );
+        );*/
 
         return $this->render('@OCPlatform/Advert/menu.html.twig', array(
             // Tout l'intérêt est ici : le contrôleur passe
             // les variables nécessaires au template !
-            'listAdverts' => $listAdverts
+            'listApplications' => $listApplications
         ));
     }
 
