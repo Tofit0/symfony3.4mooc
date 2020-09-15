@@ -1,0 +1,25 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/index.html.twig #}
+
+{% extends "@OCPlatform/layout.html.twig" %}
+
+{% block title %}
+    404 - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+    <h2>Ooouuuppssss</h2>
+
+    <ul>
+            <li>
+                <a href="{{ path('oc_advert_index', {'page': '1'}) }}">
+                    {% if msg |length > 0 %}
+                        {{ msg }}
+                    {% else %}
+                        Cette page n'existe pas encore, merci de la créer ou de revenir plus tard
+                    {% endif %}
+                </a>
+            </li>
+    </ul>
+
+{% endblock %}
