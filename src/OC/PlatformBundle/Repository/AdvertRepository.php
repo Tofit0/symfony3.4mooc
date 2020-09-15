@@ -114,6 +114,19 @@ class AdvertRepository extends \Doctrine\ORM\EntityRepository
         ;
     }
 
+    public function getAdvertsBefore(\Datetime $dayToPurgeFrom)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.updatedAt <= :date')                      // Date de modification antérieure à :date
+            ->orWhere('a.updatedAt IS NULL AND a.date <= :date') // Si la date de modification est vide, on vérifie la date de création
+            ->andWhere('a.applications IS EMPTY')                // On vérifie que l'annonce ne contient aucune candidature
+            ->setParameter('date', $dayToPurgeFrom)
+            ->getQuery()
+            ->getResult()
+        ;
+
+    }
+
     // Depuis le repository d'Advert
     public function getAdvertWithApplications()
     {

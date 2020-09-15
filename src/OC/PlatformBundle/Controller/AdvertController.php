@@ -132,7 +132,7 @@ class AdvertController extends Controller
         $application2 = new Application();
         $application2->setAuthor('Pierre');
         $application2->setContent("Je suis très motivé.");
-        $application1->setEmail('Pierre@maistascru.com');
+        $application2->setEmail('Pierre@maistascru.com');
 
         // On lie les candidatures à l'annonce
         $application1->setAdvert($advert);
@@ -189,7 +189,6 @@ class AdvertController extends Controller
     {
 
         // Ici, on récupérera l'annonce correspondant à $id
-        //$advert = $this->getAdvertImagebyId($id);
         $em = $this->getDoctrine()->getManager();
 
         // On récupère l'annonce $id
@@ -199,19 +198,19 @@ class AdvertController extends Controller
             return  $this->is404();
         }
 
-         // On boucle sur les catégories pour les lier à l'annonce
-        foreach ($advert->getCategories() as $category) {
-            $advert->removeCategory($category);
+        $advertSkillRepository = $em->getRepository('OCPlatformBundle:AdvertSkill');
+
+
+        // On récupère les AdvertSkill liées à cette annonce
+        $advertSkills = $advertSkillRepository->findBy(array('advert' => $advert));
+
+        // Pour les supprimer toutes avant de pouvoir supprimer l'annonce elle-même
+        foreach ($advertSkills as $advertSkill) {
+            $em->remove($advertSkill);
         }
 
-        // remove applications
-        //$advert->removeApplication();
-
-
-        //$em->remove($advert);
-        //$em->remove($advert->getImage());
-
-
+        // On peut maintenant supprimer l'annonce
+        $em->remove($advert);
 
         $em->flush();
 
@@ -236,21 +235,18 @@ class AdvertController extends Controller
             return  $this->is404($msg);
         }
 
-        // La méthode findAll retourne toutes les catégories de la base de données
-        $listCategories = $em->getRepository('OCPlatformBundle:Category')->findAll();
+        //si pas de catégories on les ajoutes
+        if($advert->getCategories() === null) {
+            // La méthode findAll retourne toutes les catégories de la base de données
+            $listCategories = $em->getRepository('OCPlatformBundle:Category')->findAll();
 
-        // On boucle sur les catégories pour les lier à l'annonce
-        foreach ($listCategories as $category) {
-            $advert->addCategory($category);
+            // On boucle sur les catégories pour les lier à l'annonce
+            foreach ($listCategories as $category) {
+                $advert->addCategory($category);
+            }
         }
 
-        // Pour persister le changement dans la relation, il faut persister l'entité propriétaire
-        // Ici, Advert est le propriétaire, donc inutile de la persister car on l'a récupérée depuis Doctrine
 
-
-        // Ici, on récupérera l'annonce correspondant à $id
-
-        //$image = $advert->getImage();
 
         $em->flush();
 
@@ -325,5 +321,22 @@ class AdvertController extends Controller
         }
 
     }
+
+
+    public function purgeAction($days = null, Request $request)
+    {
+        $servicePurge = $this->get('oc_platform.purger.advert');
+
+        $servicePurge->purge($days);
+
+        // On ajoute un message flash arbitraire
+        $request->getSession()->getFlashBag()->add('info', 'Les annonces plus vieilles que '.$days.' jours ont été purgées.');
+
+        // On redirige vers la page d'accueil
+        return $this->redirectToRoute('oc_advert_index');
+
+    }
+
+
 
 }

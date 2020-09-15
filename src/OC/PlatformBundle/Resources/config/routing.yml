@@ -36,3 +36,9 @@ oc_advert_edit:
     defaults: { _controller: OCPlatformBundle:Advert:edit }
     requirements:
         id:  '\d+'
+
+oc_advert_purge:
+    path:   /advert/platform/purge/{days}
+    defaults: { _controller: OCPlatformBundle:Advert:purge }
+    requirements:
+        days:  '\d+'
