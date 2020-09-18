@@ -16,7 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Advert
 {
     /**
-     * @ORM\OneToOne(targetEntity="OC\PlatformBundle\Entity\image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="OC\PlatformBundle\Entity\image", cascade={"persist", "remove"})
      */
     private $image;
 

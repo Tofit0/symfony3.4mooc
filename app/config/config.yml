@@ -37,6 +37,8 @@ twig:
     strict_variables: '%kernel.debug%'
     paths:
         '%kernel.project_dir%/src/OC/PlatformBundle/': OCPlatformBundle
+    form_themes:
+        - 'bootstrap_4_horizontal_layout.html.twig'
 
 # Doctrine Configuration
 doctrine:

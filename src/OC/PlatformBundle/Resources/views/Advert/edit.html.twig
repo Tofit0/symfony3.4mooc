@@ -16,6 +16,9 @@
         Vous éditez une annonce déjà existante, merci de ne pas changer
         l'esprit général de l'annonce déjà publiée.
     </p>
+    <div class="well">
+        {{ form(form) }}
+    </div>
 
     <p>
         <a href="{{ path('oc_advert_view', {'id': advert.id}) }}" class="btn btn-default">
