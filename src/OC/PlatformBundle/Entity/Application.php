@@ -46,6 +46,12 @@ class Application
      */
     private $date;
 
+    /**
+     * @var string
+     * @ORM\Column(name="ip", type="string", length=255, nullable=true)
+     */
+    private $ip;
+
     public function __construct()
     {
         $this->date = new \Datetime();
@@ -154,5 +160,29 @@ class Application
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set ip
+     *
+     * @param string $ip
+     *
+     * @return Application
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Get ip
+     *
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->ip;
     }
 }

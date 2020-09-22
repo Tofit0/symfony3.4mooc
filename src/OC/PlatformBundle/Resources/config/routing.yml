@@ -42,3 +42,7 @@ oc_advert_purge:
     defaults: { _controller: OCPlatformBundle:Advert:purge }
     requirements:
         days:  '\d+'
+
+oc_advert_validator:
+    path:   /advert/validator/
+    defaults: { _controller: OCPlatformBundle:Advert:validator }
