@@ -17,14 +17,7 @@ use OC\PlatformBundle\Form\AdvertEditType;
 use OC\PlatformBundle\Form\imageType;
 
 
-
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 //use Twig\Environment;
 
 class AdvertController extends Controller
@@ -105,7 +98,9 @@ class AdvertController extends Controller
     }
 
 
-
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
     public function addAction(Request $request)
     {
         // On crée un objet Advert
