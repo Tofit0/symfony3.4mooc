@@ -3,10 +3,11 @@
 #    defaults: { _controller: OCPlatformBundle:Default:index }
 
 oc_advert_index:
-    path:       /advert/{page}
+    path:       /{_locale}/advert/{page}
     defaults: { _controller: OCPlatformBundle:Advert:index, page:1  }
     requirements:
         page:  '\d+'
+        _locale: en|fr|de # les locales disponibles, séparées par des pipes « | »
 
 #oc_advert_slug:
 #    path:       /advert/view/{year}/{slug}.{_format}
@@ -16,33 +17,41 @@ oc_advert_index:
 #        _format: html|xml
 
 oc_advert_view:
-    path:       /advert/view/{id}
+    path:       /{_locale}/advert/view/{id}
     defaults: { _controller: OCPlatformBundle:Advert:view }
     requirements:
         id:  '\d+'
+        _locale: en|fr|de # les locales disponibles, séparées par des pipes « | »
 
 oc_advert_add:
-    path:       /advert/add/
+    path:       /{_locale}/advert/add/
     defaults: { _controller: OCPlatformBundle:Advert:add }
+    requirements:
+        _locale: en|fr|de # les locales disponibles, séparées par des pipes « | »
 
 oc_advert_del:
-    path:       /advert/del/{id}
+    path:       /{_locale}/advert/del/{id}
     defaults: { _controller: OCPlatformBundle:Advert:del }
     requirements:
         id:  '\d+'
+        _locale: en|fr|de # les locales disponibles, séparées par des pipes « | »
 
 oc_advert_edit:
-    path:       /advert/edit/{id}
+    path:       /{_locale}/advert/edit/{id}
     defaults: { _controller: OCPlatformBundle:Advert:edit }
     requirements:
         id:  '\d+'
+        _locale: en|fr|de # les locales disponibles, séparées par des pipes « | »
 
 oc_advert_purge:
-    path:   /advert/platform/purge/{days}
+    path:   /{_locale}/advert/platform/purge/{days}
     defaults: { _controller: OCPlatformBundle:Advert:purge }
     requirements:
         days:  '\d+'
+        _locale: en|fr|de # les locales disponibles, séparées par des pipes « | »
 
 oc_advert_validator:
-    path:   /advert/validator/
+    path:   /{_locale}/advert/validator/
     defaults: { _controller: OCPlatformBundle:Advert:validator }
+    requirements:
+        _locale: en|fr|de # les locales disponibles, séparées par des pipes « | »

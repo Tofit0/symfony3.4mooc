@@ -352,6 +352,22 @@ class AdvertController extends Controller
         }
     }
 
+    public function translationAction($name)
+    {
+
+        // On récupère le service translator
+        $translator = $this->get('translator');
+
+        // Pour traduire dans la locale de l'utilisateur :
+        $texteTraduit = $translator->trans('My message to write down into the log file');
+
+
+        return $this->render('@OCPlatform/Advert/translation.html.twig', array(
+            'name' => $name,
+            'message' => 'mes couilles en potage',
+            'texteTraduit' => $texteTraduit
+        ));
+    }
 
 
 }
