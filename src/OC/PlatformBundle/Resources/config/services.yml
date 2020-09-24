@@ -65,3 +65,9 @@ services:
           - ["alexandre", "marine", "pierre"]
         tags:
           - { name: kernel.event_listener, event: oc_platform.post_message, method: processMessage }
+
+    #PARAM CONVERTER
+    oc_platform.paramconverter.json:
+        class: OC\PlatformBundle\ParamConverter\JsonParamConverter
+        tags:
+          - { name: request.param_converter }

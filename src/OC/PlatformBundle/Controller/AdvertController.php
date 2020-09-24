@@ -4,6 +4,7 @@ namespace OC\PlatformBundle\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request; // Nouveau use
 //use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,18 +62,18 @@ class AdvertController extends Controller
      * @Route("/advert/view/{id}", name="oc_advert_view")
      * http://127.0.0.1:8001/app_dev.php/advert/view/2?tag=developer
      */
-    public function viewAction($id)
+    public function viewAction(Advert $advert, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
         // On récupère l'annonce $id
-        $advert = $em->getRepository('OCPlatformBundle:Advert')->find($id);
+        //$advert = $em->getRepository('OCPlatformBundle:Advert')->find($id);
 
         // $advert est donc une instance de OC\PlatformBundle\Entity\Advert
         // ou null si l'id $id  n'existe pas, d'où ce if :
-        if (null === $advert) {
-            return  $this->is404();
-        }
+        //if (null === $advert) {
+        //    return  $this->is404();
+        //}
 
 
         // On récupère la liste des candidatures de cette annonce
@@ -150,18 +151,24 @@ class AdvertController extends Controller
 
     }
 
-    public function delAction(Request $request, $id)
+    /**
+     * @param Request $request
+     * @param         $id
+     * @ParamConverter("Advert", options={"mapping": {"advert_id": "id"}})
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function delAction(Request $request, Advert $advert)
     {
 
         // Ici, on récupérera l'annonce correspondant à $id
         $em = $this->getDoctrine()->getManager();
 
         // On récupère l'annonce $id
-        $advert = $em->getRepository('OCPlatformBundle:Advert')->find($id);
-
-        if (null === $advert) {
-            return  $this->is404();
-        }
+//        $advert = $em->getRepository('OCPlatformBundle:Advert')->find($id);
+//
+//        if (null === $advert) {
+//            return  $this->is404();
+//        }
 
 
         // On crée un formulaire vide, qui ne contiendra que le champ CSRF
@@ -367,6 +374,14 @@ class AdvertController extends Controller
             'message' => 'mes couilles en potage',
             'texteTraduit' => $texteTraduit
         ));
+    }
+
+    /**
+     * @ParamConverter("json")
+     */
+    public function ParamConverterAction($json)
+    {
+        return new Response(print_r($json, true));
     }
 
 

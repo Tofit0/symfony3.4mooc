@@ -55,3 +55,8 @@ oc_advert_validator:
     defaults: { _controller: OCPlatformBundle:Advert:validator }
     requirements:
         _locale: en|fr|de # les locales disponibles, séparées par des pipes « | »
+
+oc_platform_paramconverter:
+  path: /test/{json}
+  defaults:
+    _controller: "OCPlatformBundle:Advert:ParamConverter"
