@@ -31,7 +31,10 @@
         "symfony/swiftmailer-bundle": "^2.6.4",
         "symfony/symfony": "3.4.*",
         "twig/twig": "^1",
-        "friendsofsymfony/user-bundle": "dev-master"
+        "friendsofsymfony/user-bundle": "dev-master",
+        "symfony/assetic-bundle": "^2.7.1",
+        "leafo/scssphp": "~0.6",
+        "patchwork/jsqueeze": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

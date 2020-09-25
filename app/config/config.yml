@@ -96,3 +96,9 @@ fos_user:
 
     service:                               # this lines
         mailer: fos_user.mailer.twig_swift # this lines
+
+#assetic:
+#    debug:          '%kernel.debug%'
+#    use_controller: '%kernel.debug%'
+#    filters:
+#      cssrewrite: ~
