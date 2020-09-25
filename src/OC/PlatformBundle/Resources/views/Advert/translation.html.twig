@@ -1,0 +1,19 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/translation.html.twig #}
+
+<html>
+<body>
+{{ 'hello'|trans({'%name%': name}) }}
+
+<div>
+    <p>{{ message|trans }}</p>
+    <p>{{ texteTraduit }}</p>
+    <p>{{ 'site.devise' | trans }}</p>
+    <button>{{ 'cancel'|trans }}</button>
+    <button>{{ 'validate'|trans }}</button>
+
+    {% for i in 0..2 %}
+        <p>{{ ('charte.donnee.' ~ i )|trans }}</p>
+    {% endfor %}
+</div>
+</body>
+</html>

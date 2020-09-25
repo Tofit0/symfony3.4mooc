@@ -1,0 +1,24 @@
+{# src/OC/CoreBundle/Resources/views/Default/index.html.twig #}
+
+{% extends "@OCCore/general/layout.html.twig" %}
+
+{% block title %}
+    Home - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+    <h2>Hompage ici on parle plongée et on se fait kiffer</h2>
+
+    <div>
+        {# On affiche tous les messages flash dont le nom est « info » #}
+        {% for message in app.flashes('info') %}
+            <p>Message flash : {{ message }}</p>
+        {% endfor %}
+    </div>
+
+    <ul>
+            <li>Pas (encore !) de nudibranches</li>
+    </ul>
+
+{% endblock %}

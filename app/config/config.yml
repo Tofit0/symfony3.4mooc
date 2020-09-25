@@ -6,7 +6,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
 
 framework:
     #esi: ~
@@ -30,11 +30,21 @@ framework:
     assets: ~
     php_errors:
         log: true
+    translator:   { fallbacks: ["%locale%"] }
+        #default_path: '%kernel.project_dir%/src/OC/PlatformBundle/Resources/translations/'
+        paths:
+            - '%kernel.project_dir%/src/OC/PlatformBundle/Resources/translations/'
+    default_locale: %locale%
 
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    paths:
+        '%kernel.project_dir%/src/OC/PlatformBundle/': OCPlatformBundle
+    form_themes:
+        - 'bootstrap_4_horizontal_layout.html.twig'
+        #- 'bootstrap_4_layout.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -69,3 +79,26 @@ swiftmailer:
 sensio_framework_extra:
    router:
         annotations: false
+
+# Stof\DoctrineExtensionsBundle configuration
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
+
+fos_user:
+    db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
+    firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
+    user_class:    OC\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
+
+    service:                               # this lines
+        mailer: fos_user.mailer.twig_swift # this lines
+
+#assetic:
+#    debug:          '%kernel.debug%'
+#    use_controller: '%kernel.debug%'
+#    filters:
+#      cssrewrite: ~
